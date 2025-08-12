@@ -15,7 +15,6 @@ body {
 
 /* スキャンページ用のスタイル */
 .scanner-page {
-    /* min-heightとflexboxを再設定して、コンテンツを中央に配置する */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
