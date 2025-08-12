@@ -68,7 +68,7 @@ header h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: white;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -76,21 +76,32 @@ header h1 {
     border: 4px solid #fff;
 }
 
+/* 未押印時のテキストを擬似要素で設定 */
+.stamp-icon::before {
+    content: "LOGO";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
 /* スタンプが押された時のデザイン */
 .stamped {
-    background-color: #4caf50; /* 成功をイメージする緑色を維持 */
+    background-color: #4caf50;
     transform: scale(1.1);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* スタンプが押された時の絵文字 */
-.stamped::after {
-    content: '🎉';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 3rem;
+/* 押印時のテキストを擬似要素で設定 */
+.stamped::before {
+    content: "🎉";
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 /* コンプリート時のメッセージ */
@@ -146,4 +157,55 @@ a.back-link:hover {
     60% { transform: scale(1.1); opacity: 1; }
     80% { transform: scale(0.9); }
     100% { transform: scale(1); }
+}
+
+/* QRスキャンボタン */
+a.qr-scan-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: #8e24aa; /* 紫色 */
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+a.qr-scan-button:hover {
+    background-color: #6a1b9a;
+    transform: translateY(-2px);
+}
+
+/* スキャンページ用スタイル */
+.scanner-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin-bottom: 20px;
+    border: 3px solid #ff69b4;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.qr-video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.qr-message {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 0.9rem;
 }
