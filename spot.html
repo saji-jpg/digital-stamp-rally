@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スタンプ獲得！</title>
+    <!-- style.cssを読み込みます -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container spot-page">
+        <h1 class="success-message">スタンプを獲得しました！</h1>
+        <a href="index.html" class="back-link">メインページへ戻る</a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const stampId = urlParams.get('id');
+
+            // URLパラメータからスタンプIDを取得し、ローカルストレージに保存
+            if (stampId) {
+                localStorage.setItem('stamp' + stampId, 'stamped');
+            }
+        });
+    </script>
+</body>
+</html>

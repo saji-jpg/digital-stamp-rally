@@ -1,0 +1,149 @@
+/* フォントのインポート */
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
+
+/* 全体的なスタイル */
+body {
+    font-family: 'Mochiy Pop One', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* 背景を明るいピンクのグラデーションに変更 */
+    background: linear-gradient(135deg, #ffc0cb 0%, #e8a9d0 100%);
+    color: #333;
+}
+
+/* ヘッダー */
+header {
+    margin-bottom: 20px;
+    padding: 20px 0;
+    width: 100%;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* メインコンテナ */
+.container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 90%;
+}
+
+.description {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* スタンプアイコンのコンテナ */
+#stamps-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* スタンプアイコンのデザイン */
+.stamp-icon {
+    width: 80px;
+    height: 80px;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: white;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 4px solid #fff;
+}
+
+/* スタンプが押された時のデザイン */
+.stamped {
+    background-color: #4caf50; /* 成功をイメージする緑色を維持 */
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* スタンプが押された時の絵文字 */
+.stamped::after {
+    content: '🎉';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+}
+
+/* コンプリート時のメッセージ */
+#achievement-message {
+    padding: 20px;
+    background-color: #ffc0cb; /* 明るいピンクに変更 */
+    border: 3px solid #ff69b4; /* 濃いピンクに変更 */
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    transform: scale(0.9);
+    animation: bounceIn 0.8s forwards;
+}
+
+.congratulations {
+    color: #8e24aa; /* 紫色に変更してピンク基調に合わせる */
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* リンクボタン */
+a.back-link {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 25px;
+    background-color: #ff69b4; /* 濃いピンクに変更 */
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+a.back-link:hover {
+    background-color: #ff1493; /* ホバー時の色をさらに濃いピンクに */
+}
+
+/* スタンプ獲得ページのデザイン */
+.spot-page {
+    background-color: #fff;
+    border: 5px solid #ff69b4; /* 濃いピンクに変更 */
+}
+
+.success-message {
+    color: #4caf50; /* 成功をイメージする緑色を維持 */
+    font-size: 2.2rem;
+}
+
+/* アニメーション */
+@keyframes bounceIn {
+    0% { transform: scale(0.1); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    80% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}

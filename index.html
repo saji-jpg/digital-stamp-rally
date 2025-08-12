@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>甲子園学院中学校・高等学校 デジタルスタンプラリー</title>
+    <!-- style.cssを読み込みます -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>甲子園学院中学校・高等学校<br>デジタルスタンプラリー</h1>
+    </header>
+    <main class="container">
+        <p class="description">QRコードを読み取ってスタンプを集めよう！</p>
+        <div id="stamps-container">
+            <!-- JavaScriptでスタンプアイコンが生成されます -->
+        </div>
+        <div id="achievement-message" class="hidden">
+            <h2 class="congratulations">🎉 コンプリートおめでとう！ 🎉</h2>
+            <p>全てのスタンプが集まりました。</p>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalStamps = 5; // スタンプの総数
+            const stampsContainer = document.getElementById('stamps-container');
+            const achievementMessage = document.getElementById('achievement-message');
+            let stampedCount = 0;
+
+            // ローカルストレージの状態を元にスタンプアイコンを表示
+            for (let i = 1; i <= totalStamps; i++) {
+                const stampIcon = document.createElement('div');
+                stampIcon.classList.add('stamp-icon');
+                if (localStorage.getItem('stamp' + i) === 'stamped') {
+                    stampIcon.classList.add('stamped');
+                    stampedCount++;
+                }
+                stampsContainer.appendChild(stampIcon);
+            }
+
+            // 全てのスタンプが集まったらメッセージを表示
+            if (stampedCount === totalStamps) {
+                achievementMessage.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
