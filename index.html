@@ -17,7 +17,7 @@
             <!-- JavaScriptでスタンプアイコンが生成されます -->
         </div>
         <div id="achievement-message" class="hidden">
-            <h2 class="congratulations">🎉 コンプリート 🎉</h2>
+            <h2 class="congratulations">🎉 コンプリートおめでとう！ 🎉</h2>
             <p>全てのスタンプが集まりました。</p>
             <div id="video-container">
                 <!-- 動画の読み込み中に表示するメッセージ -->
@@ -31,11 +31,14 @@
             QRコードを読み取る
         </a>
     </main>
+    <!-- コンプリート時にパーティクルエフェクトを発生させるためのコンテナ -->
+    <div id="particle-container" class="particle-effect"></div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const totalStamps = 5; // スタンプの総数
             const stampsContainer = document.getElementById('stamps-container');
             const achievementMessage = document.getElementById('achievement-message');
+            const particleContainer = document.getElementById('particle-container');
             let stampedCount = 0;
 
             // ローカルストレージの状態を元にスタンプアイコンを表示
@@ -61,9 +64,33 @@
                     videoLoadingMessage.classList.add('hidden');
                     specialVideo.classList.remove('hidden');
                 });
+
+                // コンプリート時にパーティクルエフェクトを発生させる
+                createParticles();
+            }
+
+            // パーティクルを生成する関数
+            function createParticles() {
+                const particleCount = 50;
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    // パーティクルのサイズをランダムに設定
+                    const size = Math.random() * 10 + 5 + 'px';
+                    particle.style.width = size;
+                    particle.style.height = size;
+                    // パーティクルの初期位置をランダムに設定
+                    particle.style.left = Math.random() * 100 + 'vw';
+                    particle.style.top = Math.random() * 100 + 'vh';
+                    // アニメーションの遅延をランダムに設定
+                    particle.style.animationDelay = Math.random() * 2 + 's';
+                    // パーティクルの色をランダムに設定（ピンク系、白、黄色）
+                    const colors = ['#ffc0cb', '#ff69b4', '#fff', '#fcd56b'];
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    particleContainer.appendChild(particle);
+                }
             }
         });
     </script>
 </body>
 </html>
-
