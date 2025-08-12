@@ -25,9 +25,17 @@ header {
 }
 
 header h1 {
-    font-size: 2rem; /* フォントサイズを小さくしました */
+    /* フォントサイズを小さくし、画面幅に応じて調整するように変更 */
+    font-size: 5vw;
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* PC向けにフォントサイズの上限を設定 */
+@media (min-width: 600px) {
+    header h1 {
+        font-size: 3rem;
+    }
 }
 
 /* メインコンテナ */
