@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRコードスキャン</title>
+    <!-- style.cssを読み込みます -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container spot-page">
+        <h1 class="success-message">QRコードをスキャン中...</h1>
+        <div class="scanner-container">
+            <video id="video" class="qr-video" playsinline></video>
+            <canvas id="canvas" class="hidden"></canvas>
+            <p id="qr-message" class="qr-message">QRコードをカメラに映してください。</p>
+        </div>
+        <a href="index.html" class="back-link">トップページへ戻る</a>
+    </div>
+    <!-- jsQRライブラリを読み込みます -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const qrMessage = document.getElementById('qr-message');
+            const canvasCtx = canvas.getContext('2d', { willReadFrequently: true });
+            let streaming = false;
+
+            // カメラの起動
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+                .then(function(stream) {
+                    video.srcObject = stream;
+                    video.play();
+                })
+                .catch(function(err) {
+                    qrMessage.textContent = 'カメラへのアクセスが拒否されました。設定を確認してください。';
+                    console.error("An error occurred: " + err);
+                });
+
+            video.addEventListener('loadedmetadata', (e) => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                streaming = true;
+                tick();
+            });
+
+            // QRコードスキャンループ
+            function tick() {
+                if (streaming) {
+                    canvasCtx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    const imageData = canvasCtx.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                        inversionAttempts: "dontInvert",
+                    });
+
+                    if (code) {
+                        console.log("Found QR code", code);
+                        // QRコードが有効なスタンプURLかチェック
+                        if (code.data.startsWith(window.location.origin + '/spot.html?id=')) {
+                            window.location.href = code.data;
+                        } else if (code.data.includes('spot.html?id=')) {
+                            // 同じドメイン内の相対パスでも動作するように調整
+                             const url = new URL(code.data);
+                             if (url.pathname.endsWith('spot.html')) {
+                                window.location.href = code.data;
+                             }
+                        } else {
+                            qrMessage.textContent = 'スタンプラリーのQRコードではありません。';
+                        }
+                    } else {
+                        qrMessage.textContent = 'QRコードをカメラに映してください。';
+                    }
+                }
+                requestAnimationFrame(tick);
+            }
+        });
+    </script>
+</body>
+</html>
