@@ -86,8 +86,8 @@ header h1 {
 
 /* 未押印時のテキストを擬似要素で設定 */
 .stamp-icon::before {
-    content: "🎀"; /* リボンの絵文字に変更 */
-    font-size: 2rem;
+    content: "LOGO"; /* 元のロゴに戻す */
+    font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -105,7 +105,7 @@ header h1 {
 
 /* 押印時のテキストを擬似要素で設定 */
 .stamped::before {
-    content: "🎉";
+    content: "🎀"; /* 押印時にリボンを表示 */
     font-size: 2rem;
     display: flex;
     justify-content: center;
