@@ -19,8 +19,13 @@
         <div id="achievement-message" class="hidden">
             <h2 class="congratulations">🎉 コンプリートおめでとう！ 🎉</h2>
             <p>全てのスタンプが集まりました。</p>
+            <!-- 右クリックを無効にする contextmenu="return false;" を追加 -->
+            <video id="special-video" class="hidden" width="100%" controls contextmenu="return false;">
+                <source src="special_message.mp4" type="video/mp4">
+                お使いのブラウザは動画に対応していません。
+            </video>
         </div>
-        <!-- 新しく追加したQRコード読み取りボタン -->
+        <!-- QRコードを読み取るボタン -->
         <a href="scanner.html" class="qr-scan-button">
             QRコードを読み取る
         </a>
@@ -30,6 +35,7 @@
             const totalStamps = 5; // スタンプの総数
             const stampsContainer = document.getElementById('stamps-container');
             const achievementMessage = document.getElementById('achievement-message');
+            const specialVideo = document.getElementById('special-video'); // 新しく追加
             let stampedCount = 0;
 
             // ローカルストレージの状態を元にスタンプアイコンを表示
@@ -43,9 +49,10 @@
                 stampsContainer.appendChild(stampIcon);
             }
 
-            // 全てのスタンプが集まったらメッセージを表示
+            // 全てのスタンプが集まったらメッセージと動画を表示
             if (stampedCount === totalStamps) {
                 achievementMessage.classList.remove('hidden');
+                specialVideo.classList.remove('hidden');
             }
         });
     </script>
