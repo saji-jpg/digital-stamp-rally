@@ -7,7 +7,12 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    /* min-heightとflexboxを削除してスクロールを有効にする */
+    /* min-heightとflexboxを再設定して、コンテンツを中央に配置する */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background: linear-gradient(135deg, #ffc0cb 0%, #e8a9d0 100%);
     color: #333;
     position: relative;
@@ -42,8 +47,12 @@ header h1 {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     max-width: 800px;
     width: 90%;
-    margin-top: 20px; /* 上部の余白を追加 */
-    margin-bottom: 20px; /* 下部の余白を追加 */
+    /* flex: 1; を追加して、コンテナが利用可能なスペースを埋めるようにする */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .description {
