@@ -7,13 +7,8 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    /* 全てのページを中央に配置するためにflexboxプロパティを再追加 */
+    /* 全てのページを中央に配置するため、flexboxプロパティを削除 */
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* コンテンツが中央に配置されるように調整 */
-    justify-content: flex-start;
     background: linear-gradient(135deg, #ffc0cb 0%, #e8a9d0 100%);
     color: #333;
     position: relative;
@@ -54,8 +49,8 @@ header h1 {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     max-width: 800px;
     width: 90%;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    /* コンテナを中央に配置 */
+    margin: 20px auto;
 }
 
 /* スキャンページのコンテナのスタイル */
