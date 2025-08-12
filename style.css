@@ -7,15 +7,19 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    /* min-heightとflexboxを再設定して、コンテンツを中央に配置する */
+    background: linear-gradient(135deg, #ffc0cb 0%, #e8a9d0 100%);
+    color: #333;
+    position: relative;
+    /* スクロールを有効にするため、flexboxのプロパティを削除 */
+}
+
+/* スキャンページ用のスタイル */
+.scanner-page {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #ffc0cb 0%, #e8a9d0 100%);
-    color: #333;
-    position: relative;
 }
 
 /* ヘッダー */
@@ -47,7 +51,12 @@ header h1 {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     max-width: 800px;
     width: 90%;
-    /* flex: 1; を追加して、コンテナが利用可能なスペースを埋めるようにする */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* スキャンページのコンテナのスタイル */
+.scanner-page .container {
     flex: 1;
     display: flex;
     flex-direction: column;
