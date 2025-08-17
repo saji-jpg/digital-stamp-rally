@@ -3,78 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QRコードスキャン</title>
-    <!-- style.cssを読み込みます -->
-    <link rel="stylesheet" href="style.css">
+    <title>甲子園学院中学校・高等学校 デジタルスタンプラリー</title>
+    <style>
+        /* フォントのインポート */
+        @import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
+
+        /* 全体的なスタイル */
+        body {
+            font-family: 'Mochiy Pop One', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* 背景を明るいピンクのグラデーションに変更 */
+            background: linear-gradient(135deg, #ffc0cb 0%, #e8a9d0 100%);
+            color: #333;
+        }
+
+        /* ヘッダー */
+        header {
+            margin-bottom: 20px;
+            padding: 20px 0;
+            width: 100%;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* メインコンテナ */
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .description {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* スタンプアイコンのコンテナ */
+        #stamps-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* スタンプアイコンのデザイン */
+        .stamp-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 4px solid #fff;
+        }
+
+        /* スタンプが押された時のデザイン */
+        .stamped {
+            background-color: #4caf50; /* 成功をイメージする緑色を維持 */
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* スタンプが押された時の絵文字 */
+        .stamped::after {
+            content: '🎉';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+        }
+
+        /* コンプリート時のメッセージ */
+        #achievement-message {
+            padding: 20px;
+            background-color: #ffc0cb; /* 明るいピンクに変更 */
+            border: 3px solid #ff69b4; /* 濃いピンクに変更 */
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            transform: scale(0.9);
+            animation: bounceIn 0.8s forwards;
+        }
+
+        .congratulations {
+            color: #8e24aa; /* 紫色に変更してピンク基調に合わせる */
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* リンクボタン */
+        a.back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: #ff69b4; /* 濃いピンクに変更 */
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        a.back-link:hover {
+            background-color: #ff1493; /* ホバー時の色をさらに濃いピンクに */
+        }
+
+        /* スタンプ獲得ページのデザイン */
+        .spot-page {
+            background-color: #fff;
+            border: 5px solid #ff69b4; /* 濃いピンクに変更 */
+        }
+
+        .success-message {
+            color: #4caf50; /* 成功をイメージする緑色を維持 */
+            font-size: 2.2rem;
+        }
+
+        /* アニメーション */
+        @keyframes bounceIn {
+            0% { transform: scale(0.1); opacity: 0; }
+            60% { transform: scale(1.1); opacity: 1; }
+            80% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+    </style>
 </head>
 <body>
-    <div class="container spot-page">
-        <h1 class="success-message">QRコードをスキャン中...</h1>
-        <div class="scanner-container">
-            <video id="video" class="qr-video" playsinline></video>
-            <canvas id="canvas" class="hidden"></canvas>
-            <p id="qr-message" class="qr-message">QRコードをカメラに映してください。</p>
+    <!-- メインページ -->
+    <main class="container main-page" id="main-content">
+        <header>
+            <!-- タイトルを更新 -->
+            <h1>甲子園学院中学校・高等学校<br>デジタルスタンプラリー</h1>
+        </header>
+        <p class="description">QRコードを読み取ってスタンプを集めよう！</p>
+        <div id="stamps-container">
+            <!-- JavaScriptでスタンプアイコンが生成されます -->
         </div>
-        <a href="index.html" class="back-link">トップページへ戻る</a>
+        <div id="achievement-message" class="hidden">
+            <h2 class="congratulations">🎉 コンプリートおめでとう！ 🎉</h2>
+            <p>全てのスタンプが集まりました。</p>
+        </div>
+    </main>
+
+    <!-- スタンプ獲得ページ -->
+    <div class="container spot-page hidden" id="spot-content">
+        <h1 class="success-message">スタンプを獲得しました！</h1>
+        <!-- 同じファイル内のメインページに戻るように設定 -->
+        <a href="?page=main" class="back-link">メインページへ戻る</a>
     </div>
-    <!-- jsQRライブラリを読み込みます -->
-    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const video = document.getElementById('video');
-            const canvas = document.getElementById('canvas');
-            const qrMessage = document.getElementById('qr-message');
-            const canvasCtx = canvas.getContext('2d', { willReadFrequently: true });
-            let streaming = false;
+            const totalStamps = 5; // スタンプの総数
+            const stampsContainer = document.getElementById('stamps-container');
+            const achievementMessage = document.getElementById('achievement-message');
+            const mainContent = document.getElementById('main-content');
+            const spotContent = document.getElementById('spot-content');
+            let stampedCount = 0;
 
-            // カメラの起動
-            navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-                .then(function(stream) {
-                    video.srcObject = stream;
-                    video.play();
-                })
-                .catch(function(err) {
-                    qrMessage.textContent = 'カメラへのアクセスが拒否されました。設定を確認してください。';
-                    console.error("An error occurred: " + err);
-                });
+            const urlParams = new URLSearchParams(window.location.search);
+            const stampId = urlParams.get('id');
+            const page = urlParams.get('page');
 
-            video.addEventListener('loadedmetadata', (e) => {
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                streaming = true;
-                tick();
-            });
+            // スタンプ獲得ロジック
+            if (stampId) {
+                // ローカルストレージにスタンプを保存
+                localStorage.setItem('stamp' + stampId, 'stamped');
+                mainContent.classList.add('hidden');
+                spotContent.classList.remove('hidden');
+            } else if (page === 'main') {
+                // メインページを表示
+                mainContent.classList.remove('hidden');
+                spotContent.classList.add('hidden');
+                // URLからパラメータを削除
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } else {
+                 // ページロード時にメインページを表示
+                mainContent.classList.remove('hidden');
+                spotContent.classList.add('hidden');
+            }
 
-            // QRコードスキャンループ
-            function tick() {
-                if (streaming) {
-                    canvasCtx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    const imageData = canvasCtx.getImageData(0, 0, canvas.width, canvas.height);
-                    const code = jsQR(imageData.data, imageData.width, imageData.height, {
-                        inversionAttempts: "dontInvert",
-                    });
-
-                    if (code) {
-                        console.log("Found QR code", code);
-                        // QRコードが有効なスタンプURLかチェック
-                        if (code.data.startsWith(window.location.origin + '/spot.html?id=')) {
-                            window.location.href = code.data;
-                        } else if (code.data.includes('spot.html?id=')) {
-                            // 同じドメイン内の相対パスでも動作するように調整
-                             const url = new URL(code.data);
-                             if (url.pathname.endsWith('spot.html')) {
-                                window.location.href = code.data;
-                             }
-                        } else {
-                            qrMessage.textContent = 'スタンプラリーのQRコードではありません。';
-                        }
-                    } else {
-                        qrMessage.textContent = 'QRコードをカメラに映してください。';
-                    }
+            // メインページでのスタンプ表示ロジック
+            for (let i = 1; i <= totalStamps; i++) {
+                const stampIcon = document.createElement('div');
+                stampIcon.classList.add('stamp-icon');
+                if (localStorage.getItem('stamp' + i) === 'stamped') {
+                    stampIcon.classList.add('stamped');
+                    stampedCount++;
                 }
-                requestAnimationFrame(tick);
+                stampsContainer.appendChild(stampIcon);
+            }
+
+            // コンプリートメッセージの表示
+            if (stampedCount === totalStamps) {
+                achievementMessage.classList.remove('hidden');
             }
         });
-    </script>
-</body>
-</html>
+    </scr
