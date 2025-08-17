@@ -12,10 +12,9 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* 背景を明るいピンクのグラデーションに変更 */
     background: linear-gradient(135deg, #ffc0cb 0%, #e8a9d0 100%);
     color: #333;
-    position: relative;
-    max-width: 100vw;
 }
 
 /* ヘッダー */
@@ -26,16 +25,9 @@ header {
 }
 
 header h1 {
-    font-size: 5vw;
+    font-size: 2.5rem;
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* PC向けにフォントサイズの上限を設定 */
-@media (min-width: 600px) {
-    header h1 {
-        font-size: 3rem;
-    }
 }
 
 /* メインコンテナ */
@@ -46,16 +38,6 @@ header h1 {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     max-width: 800px;
     width: 90%;
-    margin: 20px auto;
-}
-
-/* スキャンページのコンテナのスタイル */
-.scanner-page .container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .description {
@@ -97,7 +79,6 @@ header h1 {
 /* 未押印時のテキストを擬似要素で設定 */
 .stamp-icon::before {
     content: "LOGO";
-    font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -107,15 +88,14 @@ header h1 {
 
 /* スタンプが押された時のデザイン */
 .stamped {
-    /* グラデーションに変更 */
-    background: linear-gradient(45deg, #ff69b4 0%, #ff8c00 100%);
+    background-color: #4caf50;
     transform: scale(1.1);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* 押印時のテキストを擬似要素で設定 */
 .stamped::before {
-    content: "🎀"; /* 押印時にリボンを表示 */
+    content: "🎉";
     font-size: 2rem;
     display: flex;
     justify-content: center;
@@ -133,10 +113,13 @@ header h1 {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
     transform: scale(0.9);
-    /* アニメーションの時間を0.8sから1.5sに遅く変更 */
-    animation: bounceIn 1.5s forwards;
-    position: relative; /* パーティクルエフェクト用 */
-    z-index: 10; /* 他の要素の上に表示 */
+    animation: bounceIn 0.8s forwards;
+}
+
+.congratulations {
+    color: #8e24aa; /* 紫色に変更してピンク基調に合わせる */
+    font-size: 2rem;
+    margin-bottom: 10px;
 }
 
 /* リンクボタン */
@@ -225,36 +208,4 @@ a.qr-scan-button:hover {
     padding: 8px;
     border-radius: 5px;
     font-size: 0.9rem;
-}
-
-/* 動画のローディングメッセージ用スタイル */
-.loading-message {
-    text-align: center;
-    font-size: 1.5rem;
-    color: #8e24aa;
-    margin-top: 20px;
-}
-
-/* パーティクルエフェクトのスタイル */
-.particle-effect {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.particle {
-    position: absolute;
-    background-color: #fff;
-    border-radius: 50%;
-    opacity: 0;
-    animation: fadeOutAndMove 3s forwards;
-}
-
-@keyframes fadeOutAndMove {
-    0% { transform: translateY(0) rotate(0); opacity: 1; }
-    100% { transform: translateY(-50vh) rotate(360deg); opacity: 0; }
 }
