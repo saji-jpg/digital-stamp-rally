@@ -1,57 +1,260 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>甲子園学院中学校・高等学校 デジタルスタンプラリー</title>
-    <!-- style.cssを読み込みます -->
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>甲子園学院中学校・高等学校<br>デジタルスタンプラリー</h1>
-    </header>
-    <main class="container">
-        <p class="description">QRコードを読み取ってスタンプを集めよう！</p>
-        <div id="stamps-container">
-            <!-- JavaScriptでスタンプアイコンが生成されます -->
-        </div>
-        <div id="achievement-message" class="hidden">
-            <h2 class="congratulations">🎉 コンプリートおめでとう！ 🎉</h2>
-            <p>全てのスタンプが集まりました。</p>
-            <!-- YouTubeの動画を埋め込みます。srcを正しいURLに置き換えます。 -->
-            <iframe id="special-video" class="hidden" width="100%" height="315" src="https://www.youtube.com/embed/BrznyjhRxZ8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <!-- QRコードを読み取るボタン -->
-        <a href="scanner.html" class="qr-scan-button">
-            QRコードを読み取る
-        </a>
-    </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const totalStamps = 5; // スタンプの総数
-            const stampsContainer = document.getElementById('stamps-container');
-            const achievementMessage = document.getElementById('achievement-message');
-            const specialVideo = document.getElementById('special-video'); // 新しく追加
-            let stampedCount = 0;
+/* フォントのインポート */
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
 
-            // ローカルストレージの状態を元にスタンプアイコンを表示
-            for (let i = 1; i <= totalStamps; i++) {
-                const stampIcon = document.createElement('div');
-                stampIcon.classList.add('stamp-icon');
-                if (localStorage.getItem('stamp' + i) === 'stamped') {
-                    stampIcon.classList.add('stamped');
-                    stampedCount++;
-                }
-                stampsContainer.appendChild(stampIcon);
-            }
+/* 全体的なスタイル */
+body {
+    font-family: 'Mochiy Pop One', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffc0cb 0%, #e8a9d0 100%);
+    color: #333;
+    position: relative;
+    max-width: 100vw;
+}
 
-            // 全てのスタンプが集まったらメッセージと動画を表示
-            if (stampedCount === totalStamps) {
-                achievementMessage.classList.remove('hidden');
-                specialVideo.classList.remove('hidden');
-            }
-        });
-    </script>
-</body>
-</html>
+/* ヘッダー */
+header {
+    margin-bottom: 20px;
+    padding: 20px 0;
+    width: 100%;
+}
+
+header h1 {
+    font-size: 5vw;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* PC向けにフォントサイズの上限を設定 */
+@media (min-width: 600px) {
+    header h1 {
+        font-size: 3rem;
+    }
+}
+
+/* メインコンテナ */
+.container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 90%;
+    margin: 20px auto;
+}
+
+/* スキャンページのコンテナのスタイル */
+.scanner-page .container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.description {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* スタンプアイコンのコンテナ */
+#stamps-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* スタンプアイコンのデザイン */
+.stamp-icon {
+    width: 80px;
+    height: 80px;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: white;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 4px solid #fff;
+}
+
+/* 未押印時のテキストを擬似要素で設定 */
+.stamp-icon::before {
+    content: "LOGO";
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* スタンプが押された時のデザイン */
+.stamped {
+    /* グラデーションに変更 */
+    background: linear-gradient(45deg, #ff69b4 0%, #ff8c00 100%);
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 押印時のテキストを擬似要素で設定 */
+.stamped::before {
+    content: "🎀"; /* 押印時にリボンを表示 */
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* コンプリート時のメッセージ */
+#achievement-message {
+    padding: 20px;
+    background-color: #ffc0cb; /* 明るいピンクに変更 */
+    border: 3px solid #ff69b4; /* 濃いピンクに変更 */
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    transform: scale(0.9);
+    /* アニメーションの時間を0.8sから1.5sに遅く変更 */
+    animation: bounceIn 1.5s forwards;
+    position: relative; /* パーティクルエフェクト用 */
+    z-index: 10; /* 他の要素の上に表示 */
+}
+
+/* リンクボタン */
+a.back-link {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 25px;
+    background-color: #ff69b4; /* 濃いピンクに変更 */
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+a.back-link:hover {
+    background-color: #ff1493; /* ホバー時の色をさらに濃いピンクに */
+}
+
+/* スタンプ獲得ページのデザイン */
+.spot-page {
+    background-color: #fff;
+    border: 5px solid #ff69b4; /* 濃いピンクに変更 */
+}
+
+.success-message {
+    color: #4caf50; /* 成功をイメージする緑色を維持 */
+    font-size: 2.2rem;
+}
+
+/* アニメーション */
+@keyframes bounceIn {
+    0% { transform: scale(0.1); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    80% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+/* QRスキャンボタン */
+a.qr-scan-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: #8e24aa; /* 紫色 */
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+a.qr-scan-button:hover {
+    background-color: #6a1b9a;
+    transform: translateY(-2px);
+}
+
+/* スキャンページ用スタイル */
+.scanner-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin-bottom: 20px;
+    border: 3px solid #ff69b4;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.qr-video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.qr-message {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+/* 動画のローディングメッセージ用スタイル */
+.loading-message {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #8e24aa;
+    margin-top: 20px;
+}
+
+/* パーティクルエフェクトのスタイル */
+.particle-effect {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0;
+    animation: fadeOutAndMove 3s forwards;
+}
+
+@keyframes fadeOutAndMove {
+    0% { transform: translateY(0) rotate(0); opacity: 1; }
+    100% { transform: translateY(-50vh) rotate(360deg); opacity: 0; }
+}
