@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校舎マップ</title>
+    <style>
+        /* フォントのインポート */
+        @import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
+
+        /* 全体的なスタイル */
+        body {
+            font-family: 'Mochiy Pop One', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #ffc0cb 0%, #e8a9d0 100%);
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .map-container {
+            flex-grow: 1;
+            width: 90%;
+            max-width: 900px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #pdf-viewer {
+            width: 100%;
+            flex-grow: 1;
+            height: 600px; /* PCでの表示用に高さを設定 */
+            border: none;
+            border-radius: 10px;
+        }
+
+        /* リンクボタンのスタイル */
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #ff69b4;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #ff1493;
+        }
+    </style>
+</head>
+<body>
+    <h1>校舎マップ</h1>
+    <div class="map-container">
+        <iframe id="pdf-viewer" src="kosya.pdf"></iframe>
+        <a href="index.html" class="back-link">トップページに戻る</a>
+    </div>
+</body>
+</html>
